@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "scripts": {
+        "build:server": "lerna run build --scope={@your-workout/common,@your-workout/server}",
+        "build:web": "lerna run build --scope={@your-workout/ui,@your-workout/common,@your-workout/web}"
+    },
+    "workspaces": {
+        "packages": [
+            "packages/*"
+        ]
+    },
+    "devDependencies": {
+        "lerna": "3.13.2"
+    },
+    "resolutions": {
+        "graphql": "^14.2.1"
+    }
+}
