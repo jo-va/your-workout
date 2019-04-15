@@ -28,7 +28,9 @@
         "pg": "^7.3.0",
         "reflect-metadata": "^0.1.10",
         "type-graphql": "^0.17.1",
-        "typeorm": "0.2.16"
+        "typedi": "^0.8.0",
+        "typeorm": "0.2.16",
+        "typeorm-typedi-extensions": "^0.2.3"
     },
     "workspaces": {
         "nohoist": [

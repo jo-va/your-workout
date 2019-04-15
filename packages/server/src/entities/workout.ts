@@ -1,7 +1,7 @@
 import { Entity } from 'typeorm';
 import { ObjectType } from 'type-graphql';
-import { Base } from './base';
+import { BaseEntity } from './base-entity';
 
-@ObjectType()
+@ObjectType({ implements: BaseEntity })
 @Entity('workouts')
-export class Workout extends Base {}
+export class Workout extends BaseEntity {}

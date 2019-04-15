@@ -1,13 +1,15 @@
-import { Resolver, Query, Arg, Mutation } from 'type-graphql';
+import { Resolver, Arg, Mutation } from 'type-graphql';
+import { InjectRepository } from 'typeorm-typedi-extensions';
+import { Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 import { User } from '../entities';
 
 @Resolver(User)
 export class UserResolver {
-    @Query(() => String)
-    hello(@Arg('name') name: string): string {
-        return `Well done dear ${name || 'Follower'}`;
-    }
+    constructor(
+        @InjectRepository(User)
+        private readonly repository: Repository<User>
+    ) {}
 
     @Mutation(() => User)
     async register(
@@ -17,6 +19,6 @@ export class UserResolver {
         const user = new User();
         user.email = email;
         user.password = await bcrypt.hash(password, 10);
-        return user.save();
+        return this.repository.save(user);
     }
 }

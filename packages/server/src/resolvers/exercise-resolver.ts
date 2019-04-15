@@ -1,12 +1,21 @@
 import { Resolver, Query, Mutation, Args } from 'type-graphql';
+import { Repository } from 'typeorm';
+import { InjectRepository } from 'typeorm-typedi-extensions';
 import { Exercise, Category } from '../entities';
-import { ExerciseArgs } from './exercise-args';
+import { ExerciseArgs } from './types/exercise-args';
 
 @Resolver(Exercise)
 export class ExerciseResolver {
+    constructor(
+        @InjectRepository(Exercise)
+        private readonly repository: Repository<Exercise>,
+        @InjectRepository(Category)
+        private readonly categoriesRepository: Repository<Category>
+    ) {}
+
     @Query(() => [Exercise])
     async exercises(): Promise<Exercise[]> {
-        return Exercise.find();
+        return this.repository.find({ relations: ['categories'] });
     }
 
     @Mutation(() => Exercise)
@@ -19,7 +28,9 @@ export class ExerciseResolver {
         const exercise = new Exercise();
         exercise.description = description;
         exercise.image = image;
-        exercise.categories = await Category.findByIds(categories);
-        return exercise.save();
+        exercise.categories = await this.categoriesRepository.findByIds(
+            categories
+        );
+        return this.repository.save(exercise);
     }
 }

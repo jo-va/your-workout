@@ -1,10 +1,10 @@
 import { Entity, Column } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
-import { Base } from './base';
+import { BaseEntity } from './base-entity';
 
-@ObjectType()
+@ObjectType({ implements: BaseEntity })
 @Entity('categories')
-export class Category extends Base {
+export class Category extends BaseEntity {
     @Field()
     @Column({ unique: true })
     name: string;
