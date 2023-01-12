@@ -21,7 +21,7 @@
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
-        "class-validator": "^0.9.1",
+        "class-validator": "^0.14.0",
         "graphql": "^14.2.1",
         "graphql-import": "^0.7.1",
         "graphql-yoga": "^1.17.4",
